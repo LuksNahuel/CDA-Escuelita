@@ -4,15 +4,47 @@ import java.util.Scanner;
 import java.lang.Math;
 
 public class Quiz {
+	private int cantidad = 10;
+	private String[] operandos = {"+", "-", "*", "/"};
+	private String[] preguntas = new String[cantidad];
+	private int[] respuestas = new int[cantidad];
 	
-	String[] preguntas = new String[10];
-	int[] respuestas = new int[10];
-	String[] operadores = {"+", "-", "*", "/"};
+	public Quiz(int cantPreguntas) {
+		this.cantidad = cantPreguntas;
+	}
+	
+	public Quiz() {}
+	
+	public void generarPreguntas() {
+		for(int i = 0; i < preguntas.length; i++) {
+			int numA = (int) ((Math.random() * 10) + 1);
+			int numB = (int) ((Math.random() * 10) + 1);
+			int operando = (int) ((Math.random() * 3) + 1);
+			String operador = operandos[operando];
+			
+			preguntas[i] = "¿Cuánto es " + numA + operador + numB + "?";
+			switch(operador) {
+				case "+":
+					respuestas[i] = numA + numB;
+					break;
+				case "-":
+					respuestas[i] = numA - numB;
+					break;
+				case "*":
+					respuestas[i] = numA * numB;
+					break;
+				case "/":
+					int respuesta = (int) numA / numB;
+					respuestas[i] = respuesta;
+					break;
+			}
+		}		
+	}
 	
 	public void preguntar() {
 		Scanner input = new Scanner(System.in);
 		
-		for(int i = 0; i<preguntas.length; i++) {
+		for(int i = 0; i < preguntas.length; i++) {
 			
 			System.out.println(preguntas[i]);
 			
@@ -21,30 +53,11 @@ public class Quiz {
 			if(respuesta == respuestas[i]) {
 				System.out.println("Respuesta correcta.");
 			} else {
-				System.out.println("Respuesta incorrecta.");
+				System.out.println("Respuesta incorrecta. La respuesta es " + respuestas[i]);
 			}
-			
 		}
+		
 		input.close();
 	}
-	public void generarPreguntas(int cantidadPreguntas) {
-		
-		for(int i = 0; i<cantidadPreguntas; i++) {
-			
-			int a = (int)Math.floor(Math.random()*100+1);
-			int b = (int)Math.floor(Math.random()*100+1);
-			int c = (int)Math.floor(Math.random()*4+1);
-			
-			int respuesta = a + b;
-			switch(operadores[c]) {
-				case "+":
-					respuesta = 
-					
-			}
-			String cadena = "¿Cuánto es " + a + " + " + b +"?";
-			preguntas[i] = cadena;
-			
-			respuestas[i] = respuesta;
-		}
-	}
+	
 }
